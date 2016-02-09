@@ -79,11 +79,10 @@ export default class ReduxInfiniteScroll extends Component {
   }
 
   render () {
+    const { containerHeight, items, ...other} = this.props;
     return (
-        <div className="rs-infinite-scroll" style={{height: this.props.containerHeight}}>
-          {this.props.items.map((item, i) => {
-            return item;
-          })}
+        <div style={{height: containerHeight}} {...other}>
+          {items}
           {this.renderLoader()}
         </div>
     )
