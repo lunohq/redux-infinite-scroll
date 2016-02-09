@@ -52,7 +52,7 @@ export default class ReduxInfiniteScroll extends Component {
   scrollListener() {
     // This is to prevent the upcoming logic from toggling a load more before
     // redux has passed any data to the component
-    if (this.props.items <= 0) return;
+    if (this.props.children <= 0) return;
 
     setTimeout(() => {
       let bottomPosition = this.props.elementIsScrollable ? this._elScrollListener() : this._windowScrollListener();
@@ -79,10 +79,10 @@ export default class ReduxInfiniteScroll extends Component {
   }
 
   render () {
-    const { containerHeight, items, ...other} = this.props;
+    const { containerHeight, children, ...other} = this.props;
     return (
         <div style={{height: containerHeight}} {...other}>
-          {items}
+          {children}
           {this.renderLoader()}
         </div>
     )
@@ -90,18 +90,18 @@ export default class ReduxInfiniteScroll extends Component {
 }
 
 ReduxInfiniteScroll.propTypes = {
-  elementIsScrollable: React.PropTypes.bool,
+  children: React.PropTypes.node.isRequired,
   containerHeight: React.PropTypes.oneOfType([
     React.PropTypes.number,
     React.PropTypes.string
   ]),
+  elementIsScrollable: React.PropTypes.bool,
   threshold: React.PropTypes.number,
   hasMore: React.PropTypes.bool,
   loadingMore: React.PropTypes.bool,
   loader: React.PropTypes.any,
   showLoader: React.PropTypes.bool,
   loadMore: React.PropTypes.func.isRequired,
-  items: React.PropTypes.array.isRequired
 };
 
 ReduxInfiniteScroll.defaultProps = {
